@@ -10,7 +10,7 @@ export const env = {
   port: Number(process.env.PORT ?? 4000),
   databaseUrl: process.env.DATABASE_URL ?? "",
   jwtSecret: process.env.JWT_SECRET ?? "",
-  clientOrigin: process.env.CLIENT_ORIGIN ?? "http://localhost:5173",
+  clientOrigin: process.env.CLIENT_ORIGIN ?? "https://shopdashboard-1.onrender.com",
   cookieName: process.env.COOKIE_NAME ?? "shopbook_token",
   timeZone: process.env.TZ ?? "Asia/Kolkata",
 };

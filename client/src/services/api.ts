@@ -1,4 +1,4 @@
-const API = "/api";
+const API = "https://shopdashboard-8jb4.onrender.com/api";
 
 type ApiSuccess<T> = { success: true; data: T; message?: string };
 type ApiFail = { success: false; message: string };
