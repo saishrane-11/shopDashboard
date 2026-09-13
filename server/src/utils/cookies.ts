@@ -8,7 +8,7 @@ export function cookieOptions(): CookieOptions {
   return {
     httpOnly: true,
     secure: isProd,
-    sameSite: "lax",
+    sameSite: "none",
     path: "/",
     maxAge: SEVEN_DAYS_MS,
   };
