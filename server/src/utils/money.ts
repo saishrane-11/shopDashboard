@@ -1,5 +1,5 @@
-import type { Decimal } from "@prisma/client/runtime/library";
+type MoneyLike = string | number | { toString(): string };
 
-export function toNumber(value: Decimal | number | string): number {
+export function toNumber(value: MoneyLike): number {
   return Number(value);
 }
