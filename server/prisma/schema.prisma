@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SaleStatus {
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  phone        String   @unique
+  email        String?  @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  shop         Shop?
+}
+
+model Shop {
+  id        String    @id @default(cuid())
+  name      String
+  ownerId   String    @unique
+  owner     User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  products  Product[]
+  sales     Sale[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Product {
+  id                String     @id @default(cuid())
+  shopId            String
+  shop              Shop       @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  name              String
+  sellingPrice      Decimal    @db.Decimal(10, 2)
+  stockQuantity     Int
+  lowStockThreshold Int        @default(5)
+  isActive          Boolean    @default(true)
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+  saleItems         SaleItem[]
+
+  @@index([shopId, isActive])
+  @@index([shopId, name])
+}
+
+model Sale {
+  id          String     @id @default(cuid())
+  shopId      String
+  shop        Shop       @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  totalAmount Decimal    @db.Decimal(10, 2)
+  status      SaleStatus @default(COMPLETED)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  items       SaleItem[]
+
+  @@index([shopId, createdAt])
+  @@index([shopId, status, createdAt])
+}
+
+model SaleItem {
+  id         String  @id @default(cuid())
+  saleId     String
+  sale       Sale    @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  productId  String
+  product    Product @relation(fields: [productId], references: [id])
+  quantity   Int
+  unitPrice  Decimal @db.Decimal(10, 2)
+  totalPrice Decimal @db.Decimal(10, 2)
+
+  @@index([saleId])
+  @@index([productId])
+}

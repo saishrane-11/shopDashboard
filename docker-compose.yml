@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: shopbook-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: shopbook
+      POSTGRES_PASSWORD: shopbook
+      POSTGRES_DB: shopbook
+    ports:
+      - "5432:5432"
+    volumes:
+      - shopbook_pgdata:/var/lib/postgresql/data
+
+volumes:
+  shopbook_pgdata:

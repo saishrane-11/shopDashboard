@@ -1,0 +1,109 @@
+.shell {
+  min-height: 100vh;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  background: #0f766e;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.shopName {
+  font-weight: 800;
+}
+
+.content {
+  padding: 16px;
+  padding-bottom: calc(var(--bottom-nav) + 24px);
+}
+
+.bottomNav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--bottom-nav);
+  background: white;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  z-index: 15;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.active {
+  color: var(--brand);
+}
+
+.navPlus {
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  background: var(--brand);
+  color: white;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+  margin-top: -18px;
+}
+
+.sidebar {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .shell {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+  }
+
+  .topbar,
+  .bottomNav {
+    display: none;
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: #0b3d3a;
+    color: white;
+    padding: 24px 16px;
+    min-height: 100vh;
+    position: sticky;
+    top: 0;
+  }
+
+  .sidebar a {
+    padding: 12px 14px;
+    border-radius: 12px;
+    color: #d7f3ef;
+  }
+
+  .sidebar a.active,
+  .sidebar a:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+  }
+
+  .content {
+    padding: 32px;
+    max-width: 980px;
+  }
+}
